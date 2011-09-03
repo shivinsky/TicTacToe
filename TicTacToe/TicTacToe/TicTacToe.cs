@@ -12,14 +12,14 @@ using Microsoft.Xna.Framework.Media;
 namespace TicTacToe
 {
     /// <summary>
-    /// This is the main type for your game
+    /// This is the main type for Tic Tac Toe
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class TicTacToe : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        public Game1()
+        public TicTacToe()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -36,6 +36,11 @@ namespace TicTacToe
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
+            graphics.PreferredBackBufferHeight = 240;
+            graphics.PreferredBackBufferWidth = 240;
+
+            graphics.ApplyChanges();
         }
 
         /// <summary>
