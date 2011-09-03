@@ -1,0 +1,1 @@
+D:\Research\C#\TicTacToe\TicTacToe\TicTacToeContent\obj\x86\Debug\ResolveAssemblyReference.cache
