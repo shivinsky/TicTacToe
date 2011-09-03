@@ -95,7 +95,7 @@ namespace TicTacToe
 
             spriteBatch.Begin();
 
-            spriteBatch.DrawString(gameFont, "BirdsOtSten", new Vector2(1, 1), Color.BlueViolet);
+            spriteBatch.DrawString(gameFont, "BirdsOtSten_", new Vector2(1, 1), Color.BlueViolet);
 
             spriteBatch.End();
 
