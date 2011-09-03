@@ -8,24 +8,15 @@ namespace TicTacToe
     /// <summary>
     /// Position.
     /// </summary>
-    class Position
+    struct Position
     {
+        public readonly uint x;
+        public readonly uint y;
+
         public Position(uint x, uint y)
         {
-            X = x;
-            Y = y;
-        }
-
-        public uint X
-        {
-            get;
-            private set;
-        }
-
-        public uint Y
-        {
-            get;
-            private set;
+            this.x = x;
+            this.y = y;
         }
     }
 }

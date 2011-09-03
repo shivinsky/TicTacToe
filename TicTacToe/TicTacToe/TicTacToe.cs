@@ -18,6 +18,7 @@ namespace TicTacToe
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont gameFont;
 
         public TicTacToe()
         {
@@ -37,6 +38,8 @@ namespace TicTacToe
 
             base.Initialize();
 
+            IsMouseVisible = true;
+
             graphics.PreferredBackBufferHeight = 240;
             graphics.PreferredBackBufferWidth = 240;
 
@@ -51,6 +54,8 @@ namespace TicTacToe
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            gameFont = Content.Load<SpriteFont>("main");
 
             // TODO: use this.Content to load your game content here
         }
@@ -88,7 +93,11 @@ namespace TicTacToe
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            spriteBatch.DrawString(gameFont, "What a milk?!", new Vector2(1, 1), Color.BlueViolet);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
