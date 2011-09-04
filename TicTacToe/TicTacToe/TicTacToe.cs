@@ -101,7 +101,6 @@ namespace TicTacToe
 
             _spriteBatch.Draw(_back, new Vector2(0, 0), Color.White);
 
-            // TODO Fix this shit.
             _spriteBatch.DrawString(_gameFont, "Player 1", new Vector2(25, 25), Color.Black);
             _spriteBatch.DrawString(_gameFont, "Player 2", new Vector2(200, 25), Color.Black);
             _spriteBatch.DrawString(_gameFont, "0", new Vector2(75, 55), Color.Green);

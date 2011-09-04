@@ -28,6 +28,8 @@ namespace TicTacToe
         Vector2 _position;
         Rectangle _rectangle;
 
+        bool _win;
+        int _winSequence;
         int _size;
         int _cellSize;
 
@@ -37,6 +39,7 @@ namespace TicTacToe
             _graphicsDevice = graphicsDevice;
             _spriteBatch = spriteBatch;
 
+            _winSequence = 3;
             _size = size;
             _cellSize = 26;
             _position = position;
@@ -44,6 +47,58 @@ namespace TicTacToe
                 _size * _cellSize, _size * _cellSize);
 
             LoadContent();
+        }
+
+        /// <summary>
+        /// Returns all moves
+        /// </summary>
+        /// <returns></returns>
+        public List<Move> AllMoves()
+        {
+            return new List<Move>();
+        }
+
+        /// <summary>
+        /// Check winner.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="last"></param>
+        /// <returns></returns>
+        public bool CheckWinner(bool player, Position last)
+        {
+            var chain = new List<List<Position>>();
+            for (int i = 0; i < 4; i++)
+                chain.Add(new List<Position>());
+            for (int i = 0; i < _size; i++)
+            {
+                // Directions
+                var checks = new List<Position>
+                {
+                    new Position(last.x, i), new Position(i, last.y), 
+                    new Position(i, _size - i - 1), new Position(i, i)                     
+                };
+
+                // Check vertical, horizontal, diagonal, anti-diagonal
+                for (var j = 0; j < checks.Count; j++)
+                {
+                    Piece piece;
+                    if (_board.TryGetValue(checks[j], out piece) && player == piece.Player)
+                    {
+                        chain[j].Add(checks[j]);
+                    }
+                    else
+                    {
+                        chain[j].Clear();
+                    }
+                }
+
+                // Got winner?
+                if (chain.Exists(x => x.Count >= _winSequence))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -72,7 +127,9 @@ namespace TicTacToe
                 Position position = new Position((int)translate.X, (int)translate.Y);
                 if (!_board.ContainsKey(position))
                 {
-                    _board.Add(position, new Piece(new Random().Next(0, 2) == 1));
+                    bool player = new Random().Next(0, 1) == 1;
+                    _board.Add(position, new Piece(player));
+                    _win = CheckWinner(player, position);
                 }
             }
             _mousePrevious = _mouseCurrent;
@@ -132,12 +189,19 @@ namespace TicTacToe
                 string player = pair.Value.Player ? "O" : "X";
                 Vector2 size = _gameFont.MeasureString(player);
 
+                // HACK 
+                size -= new Vector2(0, 9);
+
                 // Center align
                 Vector2 center = new Vector2(_cellSize / 2 - size.X / 2, 
-                    _cellSize / 2 - size.Y / 2 + 4);
+                    _cellSize / 2 - size.Y / 2);
 
                 _spriteBatch.DrawString(_gameFont, player, _position + center +
                     new Vector2(_cellSize * pair.Key.x, _cellSize * pair.Key.y), color);
+            }
+            if (_win)
+            {
+                _spriteBatch.DrawString(_gameFont, "Win!", new Vector2(400, 200), Color.CadetBlue);
             }
         }
 
