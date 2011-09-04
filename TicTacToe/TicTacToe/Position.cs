@@ -10,10 +10,10 @@ namespace TicTacToe
     /// </summary>
     struct Position
     {
-        public readonly uint x;
-        public readonly uint y;
+        public readonly int x;
+        public readonly int y;
 
-        public Position(uint x, uint y)
+        public Position(int x, int y)
         {
             this.x = x;
             this.y = y;

@@ -16,13 +16,20 @@ namespace TicTacToe
     /// </summary>
     public class TicTacToe : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        SpriteFont gameFont;
+        GraphicsDeviceManager _graphics;
+        SpriteBatch _spriteBatch;
+
+        SpriteFont _gameFont;
+        SpriteFont _menuFont;
+
+        Texture2D _back;
+
+        Board _board;
 
         public TicTacToe()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
+
             Content.RootDirectory = "Content";
         }
 
@@ -34,16 +41,14 @@ namespace TicTacToe
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
 
             IsMouseVisible = true;
 
-            graphics.PreferredBackBufferHeight = 240;
-            graphics.PreferredBackBufferWidth = 240;
+            _graphics.PreferredBackBufferHeight = 512;
+            _graphics.PreferredBackBufferWidth = 512;
 
-            graphics.ApplyChanges();
+            _graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -51,13 +56,14 @@ namespace TicTacToe
         /// all of your content.
         /// </summary>
         protected override void LoadContent()
-        {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+        {     
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            gameFont = Content.Load<SpriteFont>("main");
+            _gameFont = Content.Load<SpriteFont>("main");
+            _menuFont = Content.Load<SpriteFont>("menu");
+            _back = Content.Load<Texture2D>("back");
 
-            // TODO: use this.Content to load your game content here
+            _board = new Board(Content, GraphicsDevice, _spriteBatch, new Vector2(20, 100), 7);
         }
 
         /// <summary>
@@ -66,7 +72,6 @@ namespace TicTacToe
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -76,11 +81,10 @@ namespace TicTacToe
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            _board.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -93,11 +97,23 @@ namespace TicTacToe
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
+            _spriteBatch.Begin();
 
-            spriteBatch.DrawString(gameFont, "BirdsOtSten_", new Vector2(1, 1), Color.BlueViolet);
+            _spriteBatch.Draw(_back, new Vector2(0, 0), Color.White);
 
-            spriteBatch.End();
+            // TODO Fix this shit.
+            _spriteBatch.DrawString(_gameFont, "Player 1", new Vector2(25, 25), Color.Black);
+            _spriteBatch.DrawString(_gameFont, "Player 2", new Vector2(200, 25), Color.Black);
+            _spriteBatch.DrawString(_gameFont, "0", new Vector2(75, 55), Color.Green);
+            _spriteBatch.DrawString(_gameFont, "0", new Vector2(250, 55), Color.Green);
+
+            _spriteBatch.DrawString(_menuFont, "New", new Vector2(100, 455), Color.Red, 25, new Vector2(0, 0), 1, SpriteEffects.None, 0);
+            _spriteBatch.DrawString(_menuFont, "Top", new Vector2(190, 445), Color.Red, 25, new Vector2(0, 0), 1, SpriteEffects.None, 0);
+            _spriteBatch.DrawString(_menuFont, "About", new Vector2(270, 430), Color.Red, 25, new Vector2(0, 0), 1, SpriteEffects.None, 0);
+
+            _board.Draw(gameTime);
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
