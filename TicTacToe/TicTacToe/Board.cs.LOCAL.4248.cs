@@ -18,8 +18,6 @@ namespace TicTacToe
         SpriteBatch _spriteBatch;
         GraphicsDevice _graphicsDevice;
 
-        Boolean _playerCurrent;
-
         Dictionary<Position, Piece> _board = new Dictionary<Position, Piece>();
 
         MouseState _mouseCurrent;
@@ -41,13 +39,13 @@ namespace TicTacToe
             _graphicsDevice = graphicsDevice;
             _spriteBatch = spriteBatch;
 
-            _playerCurrent = (new Random().Next(0, 2) == 1);
             _winSequence = 3;
             _size = size;
             _cellSize = 26;
             _position = position;
             _rectangle = new Rectangle((int)_position.X, (int)_position.Y,
                 _size * _cellSize, _size * _cellSize);
+
             LoadContent();
         }
 
@@ -129,9 +127,9 @@ namespace TicTacToe
                 Position position = new Position((int)translate.X, (int)translate.Y);
                 if (!_board.ContainsKey(position))
                 {
-                    _board.Add(position, new Piece(_playerCurrent));
-                    _win = CheckWinner(_playerCurrent, position);
-                    _playerCurrent = !(_playerCurrent);
+                    bool player = new Random().Next(0, 1) == 1;
+                    _board.Add(position, new Piece(player));
+                    _win = CheckWinner(player, position);
                 }
             }
             _mousePrevious = _mouseCurrent;
@@ -205,12 +203,6 @@ namespace TicTacToe
             {
                 _spriteBatch.DrawString(_gameFont, "Win!", new Vector2(400, 200), Color.CadetBlue);
             }
-        }
-
-        public bool CurrentPlayer
-        {
-            get;
-            set;
         }
 
     }

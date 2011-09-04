@@ -41,8 +41,12 @@ namespace TicTacToe
             _graphicsDevice = graphicsDevice;
             _spriteBatch = spriteBatch;
 
-            _playerCurrent = (new Random().Next(0, 2) == 1);
+<<<<<<< HEAD
             _winSequence = 3;
+=======
+            _playerCurrent = (new Random().Next(0, 2) == 1);
+
+>>>>>>> c67b4d537ceb0e9de14a73e9bdca978c0fc67a8e
             _size = size;
             _cellSize = 26;
             _position = position;
@@ -129,9 +133,14 @@ namespace TicTacToe
                 Position position = new Position((int)translate.X, (int)translate.Y);
                 if (!_board.ContainsKey(position))
                 {
+<<<<<<< HEAD
+                    bool player = new Random().Next(0, 1) == 1;
+                    _board.Add(position, new Piece(player));
+                    _win = CheckWinner(player, position);
+=======
                     _board.Add(position, new Piece(_playerCurrent));
-                    _win = CheckWinner(_playerCurrent, position);
                     _playerCurrent = !(_playerCurrent);
+>>>>>>> c67b4d537ceb0e9de14a73e9bdca978c0fc67a8e
                 }
             }
             _mousePrevious = _mouseCurrent;
@@ -207,10 +216,9 @@ namespace TicTacToe
             }
         }
 
-        public bool CurrentPlayer
+        public Boolean GetCurrentPlayer()
         {
-            get;
-            set;
+            return _playerCurrent;
         }
 
     }
