@@ -77,9 +77,9 @@ namespace TicTacToe
                 var checks = new List<Position>
                 {
                     new Position(last.x, i), new Position(i, last.y), 
-                    new Position(i, _size - i - 1), new Position(i, i)                     
+                    new Position(i, i - last.x + last.y), new Position(i, last.x + last.y - i)                    
                 };
-
+                                  
                 // Check vertical, horizontal, diagonal, anti-diagonal
                 for (var j = 0; j < checks.Count; j++)
                 {
@@ -131,7 +131,7 @@ namespace TicTacToe
                 {
                     _board.Add(position, new Piece(_playerCurrent));
                     _win = CheckWinner(_playerCurrent, position);
-                    _playerCurrent = !(_playerCurrent);
+                    _playerCurrent = !_playerCurrent;
                 }
             }
             _mousePrevious = _mouseCurrent;
