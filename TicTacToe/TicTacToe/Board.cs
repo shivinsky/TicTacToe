@@ -146,8 +146,9 @@ namespace TicTacToe
                     {
                         _win = true;
                         var center = new Vector2(_cellSize / 2, _cellSize / 2);
-                        _from = new Vector2(path.First().x, path.First().y) * _cellSize + _position + center;
-                        _to = new Vector2(path.Last().x, path.Last().y) * _cellSize + _position + center;
+                        Vector2 dir = new Vector2(path[1].x - path[0].x, path[1].y - path[0].y);
+                        _from = new Vector2(path.First().x, path.First().y) * _cellSize + (dir * _cellSize / 2)  + _position + center;
+                        _to = new Vector2(path.Last().x, path.Last().y) * _cellSize - (dir * _cellSize / 2) + _position + center;
                     }
                     _playerCurrent = !_playerCurrent;
                 }
