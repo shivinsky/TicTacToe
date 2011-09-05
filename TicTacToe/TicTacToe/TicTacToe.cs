@@ -22,6 +22,9 @@ namespace TicTacToe
         SpriteFont _gameFont;
         SpriteFont _menuFont;
 
+        Texture2D _redPencil;
+        Texture2D _bluePencil;
+
         Texture2D _back;
 
         Board _board;
@@ -68,6 +71,8 @@ namespace TicTacToe
             _gameFont = Content.Load<SpriteFont>("main");
             _menuFont = Content.Load<SpriteFont>("menu");
             _back = Content.Load<Texture2D>("back");
+            _bluePencil = Content.Load<Texture2D>("blue_pencil");
+            _redPencil = Content.Load<Texture2D>("red_pencil");
         }
 
         /// <summary>
@@ -104,6 +109,9 @@ namespace TicTacToe
             _spriteBatch.Begin();
 
             _spriteBatch.Draw(_back, new Vector2(0, 0), Color.White);
+
+            _spriteBatch.Draw(_redPencil, new Vector2(125, 25), Color.White);
+            _spriteBatch.Draw(_bluePencil, new Vector2(325, 25), Color.White);
 
             _spriteBatch.DrawString(_gameFont, "Player 1", new Vector2(25, 25), Color.Black);
             _spriteBatch.DrawString(_gameFont, "Player 2", new Vector2(375, 25), Color.Black);

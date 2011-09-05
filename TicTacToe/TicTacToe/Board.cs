@@ -217,11 +217,6 @@ namespace TicTacToe
                 _spriteBatch.DrawString(_gameFont, player, _position + center +
                     new Vector2(_cellSize * pair.Key.x, _cellSize * pair.Key.y), color);
             }
-            if (_win)
-            {
-                DrawLine(_spriteBatch, 2, Color.Red, _from, _to);
-                _spriteBatch.DrawString(_gameFont, "Win!", new Vector2(250, 50), Color.CadetBlue);
-            }
         }
 
         public bool CurrentPlayer
