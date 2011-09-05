@@ -45,10 +45,16 @@ namespace TicTacToe
 
             IsMouseVisible = true;
 
-            _graphics.PreferredBackBufferHeight = 512;
             _graphics.PreferredBackBufferWidth = 512;
+            _graphics.PreferredBackBufferHeight = 512;
 
             _graphics.ApplyChanges();
+
+            var size = 10;
+            var cellSize = 26;
+            var center = new Vector2(_graphics.PreferredBackBufferWidth / 2 - size * cellSize / 2,
+                _graphics.PreferredBackBufferHeight / 2 - size * cellSize / 2);
+            _board = new Board(Content, GraphicsDevice, _spriteBatch, center, size, cellSize);
         }
 
         /// <summary>
@@ -62,8 +68,6 @@ namespace TicTacToe
             _gameFont = Content.Load<SpriteFont>("main");
             _menuFont = Content.Load<SpriteFont>("menu");
             _back = Content.Load<Texture2D>("back");
-
-            _board = new Board(Content, GraphicsDevice, _spriteBatch, new Vector2(20, 100), 7);
         }
 
         /// <summary>
@@ -102,9 +106,9 @@ namespace TicTacToe
             _spriteBatch.Draw(_back, new Vector2(0, 0), Color.White);
 
             _spriteBatch.DrawString(_gameFont, "Player 1", new Vector2(25, 25), Color.Black);
-            _spriteBatch.DrawString(_gameFont, "Player 2", new Vector2(200, 25), Color.Black);
-            _spriteBatch.DrawString(_gameFont, "0", new Vector2(75, 55), Color.Green);
-            _spriteBatch.DrawString(_gameFont, "0", new Vector2(250, 55), Color.Green);
+            _spriteBatch.DrawString(_gameFont, "Player 2", new Vector2(375, 25), Color.Black);
+            _spriteBatch.DrawString(_gameFont, "0", new Vector2(70, 55), Color.Green);
+            _spriteBatch.DrawString(_gameFont, "0", new Vector2(420, 55), Color.Green);
 
             _spriteBatch.DrawString(_menuFont, "New", new Vector2(100, 455), Color.Red, 25, new Vector2(0, 0), 1, SpriteEffects.None, 0);
             _spriteBatch.DrawString(_menuFont, "Top", new Vector2(190, 445), Color.Red, 25, new Vector2(0, 0), 1, SpriteEffects.None, 0);

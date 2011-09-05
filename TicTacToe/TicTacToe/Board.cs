@@ -30,24 +30,29 @@ namespace TicTacToe
         Vector2 _position;
         Rectangle _rectangle;
 
+        Vector2 _from;
+        Vector2 _to;
+
         bool _win;
         int _winSequence;
         int _size;
         int _cellSize;
 
-        public Board(ContentManager content, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, Vector2 position, int size)
+        public Board(ContentManager content, GraphicsDevice graphicsDevice, 
+            SpriteBatch spriteBatch, Vector2 position, int size, int cellSize)
         {
             _content = content;
             _graphicsDevice = graphicsDevice;
             _spriteBatch = spriteBatch;
 
             _playerCurrent = (new Random().Next(0, 2) == 1);
-            _winSequence = 3;
+            _winSequence = 5;
             _size = size;
-            _cellSize = 26;
+            _cellSize = cellSize;
             _position = position;
             _rectangle = new Rectangle((int)_position.X, (int)_position.Y,
                 _size * _cellSize, _size * _cellSize);
+
             LoadContent();
         }
 
@@ -66,11 +71,15 @@ namespace TicTacToe
         /// <param name="player"></param>
         /// <param name="last"></param>
         /// <returns></returns>
-        public bool CheckWinner(bool player, Position last)
+        public List<Position> CheckWinner(bool player, Position last)
         {
             var chain = new List<List<Position>>();
+
             for (int i = 0; i < 4; i++)
+            {
                 chain.Add(new List<Position>());
+            }
+
             for (int i = 0; i < _size; i++)
             {
                 // Directions
@@ -95,12 +104,14 @@ namespace TicTacToe
                 }
 
                 // Got winner?
-                if (chain.Exists(x => x.Count >= _winSequence))
+                var path = chain.Find(x => x.Count >= _winSequence);
+                if (path != null)
                 {
-                    return true;
+                    return path;
                 }
             }
-            return false;
+
+            return null;
         }
 
         /// <summary>
@@ -124,13 +135,20 @@ namespace TicTacToe
                 _mousePrevious.LeftButton == ButtonState.Released &&
                 _rectangle.Contains(new Point(_mouseCurrent.X, _mouseCurrent.Y)))
             {
-                Vector2 translate = new Vector2(_mouseCurrent.X - _position.X, 
+                var translate = new Vector2(_mouseCurrent.X - _position.X, 
                     _mouseCurrent.Y - _position.Y) / _cellSize;
-                Position position = new Position((int)translate.X, (int)translate.Y);
+                var position = new Position((int)translate.X, (int)translate.Y);
                 if (!_board.ContainsKey(position))
                 {
                     _board.Add(position, new Piece(_playerCurrent));
-                    _win = CheckWinner(_playerCurrent, position);
+                    var path = CheckWinner(_playerCurrent, position);
+                    if (path != null)
+                    {
+                        _win = true;
+                        var center = new Vector2(_cellSize / 2, _cellSize / 2);
+                        _from = new Vector2(path.First().x, path.First().y) * _cellSize + _position + center;
+                        _to = new Vector2(path.Last().x, path.Last().y) * _cellSize + _position + center;
+                    }
                     _playerCurrent = !_playerCurrent;
                 }
             }
@@ -191,9 +209,6 @@ namespace TicTacToe
                 string player = pair.Value.Player ? "O" : "X";
                 Vector2 size = _gameFont.MeasureString(player);
 
-                // HACK 
-                size -= new Vector2(0, 9);
-
                 // Center align
                 Vector2 center = new Vector2(_cellSize / 2 - size.X / 2, 
                     _cellSize / 2 - size.Y / 2);
@@ -203,7 +218,8 @@ namespace TicTacToe
             }
             if (_win)
             {
-                _spriteBatch.DrawString(_gameFont, "Win!", new Vector2(400, 200), Color.CadetBlue);
+                DrawLine(_spriteBatch, 2, Color.Red, _from, _to);
+                _spriteBatch.DrawString(_gameFont, "Win!", new Vector2(250, 50), Color.CadetBlue);
             }
         }
 
