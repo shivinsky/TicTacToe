@@ -1,3 +1,0 @@
-Content\main.xnb
-Content\menu.xnb
-Content\back.xnb

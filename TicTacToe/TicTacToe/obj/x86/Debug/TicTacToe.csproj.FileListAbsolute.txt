@@ -1,6 +1,0 @@
-D:\Research\C#\TicTacToe\TicTacToe\TicTacToe\bin\x86\Debug\TicTacToe.exe
-D:\Research\C#\TicTacToe\TicTacToe\TicTacToe\bin\x86\Debug\TicTacToe.pdb
-D:\Research\C#\TicTacToe\TicTacToe\TicTacToe\obj\x86\Debug\ResolveAssemblyReference.cache
-D:\Research\C#\TicTacToe\TicTacToe\TicTacToe\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-D:\Research\C#\TicTacToe\TicTacToe\TicTacToe\obj\x86\Debug\TicTacToe.exe
-D:\Research\C#\TicTacToe\TicTacToe\TicTacToe\obj\x86\Debug\TicTacToe.pdb
