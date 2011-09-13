@@ -42,39 +42,42 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="main.spritefont">
+    <Compile Include="Fonts\main.spritefont">
       <Name>main</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="back.png">
+    <Compile Include="Textures\back.png">
       <Name>back</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="menu.spritefont">
+    <Compile Include="Fonts\menu.spritefont">
       <Name>menu</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="blue_pencil.png">
+    <Compile Include="Textures\blue_pencil.png">
       <Name>blue_pencil</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="red_pencil.png">
+    <Compile Include="Textures\red_pencil.png">
       <Name>red_pencil</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Sounds\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

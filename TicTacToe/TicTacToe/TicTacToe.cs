@@ -53,11 +53,11 @@ namespace TicTacToe
 
             _graphics.ApplyChanges();
 
-            var size = 10;
+            var size = new Vector2(4, 8);
             var cellSize = 26;
-            var center = new Vector2(_graphics.PreferredBackBufferWidth / 2 - size * cellSize / 2,
-                _graphics.PreferredBackBufferHeight / 2 - size * cellSize / 2);
-            _board = new Board(Content, GraphicsDevice, _spriteBatch, center, size, cellSize);
+            var center = new Vector2(_graphics.PreferredBackBufferWidth / 2 - size.X * cellSize / 2,
+                _graphics.PreferredBackBufferHeight / 2 - size.Y * cellSize / 2);
+            _board = new Board(center, size, cellSize, this);
         }
 
         /// <summary>
@@ -68,11 +68,11 @@ namespace TicTacToe
         {     
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _gameFont = Content.Load<SpriteFont>("main");
-            _menuFont = Content.Load<SpriteFont>("menu");
-            _back = Content.Load<Texture2D>("back");
-            _bluePencil = Content.Load<Texture2D>("blue_pencil");
-            _redPencil = Content.Load<Texture2D>("red_pencil");
+            _gameFont = Content.Load<SpriteFont>("Fonts/main");
+            _menuFont = Content.Load<SpriteFont>("Fonts/menu");
+            _back = Content.Load<Texture2D>("Textures/back");
+            _bluePencil = Content.Load<Texture2D>("Textures/blue_pencil");
+            _redPencil = Content.Load<Texture2D>("Textures/red_pencil");
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace TicTacToe
             _spriteBatch.DrawString(_menuFont, "Top", new Vector2(190, 445), Color.Red, 25, new Vector2(0, 0), 1, SpriteEffects.None, 0);
             _spriteBatch.DrawString(_menuFont, "About", new Vector2(270, 430), Color.Red, 25, new Vector2(0, 0), 1, SpriteEffects.None, 0);
 
-            _board.Draw(gameTime);
+            _board.Draw(_spriteBatch);
 
             _spriteBatch.End();
 
