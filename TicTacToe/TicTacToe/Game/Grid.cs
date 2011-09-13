@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TicTacToe
 {
+    /// <summary>
+    /// Grid.
+    /// </summary>
     class Grid : GameComponent
     {
         private Rectangle _rectangle;

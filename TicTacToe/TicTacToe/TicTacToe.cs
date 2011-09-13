@@ -53,7 +53,7 @@ namespace TicTacToe
 
             _graphics.ApplyChanges();
 
-            var size = new Vector2(4, 8);
+            var size = new Vector2(10, 8);
             var cellSize = 26;
             var center = new Vector2(_graphics.PreferredBackBufferWidth / 2 - size.X * cellSize / 2,
                 _graphics.PreferredBackBufferHeight / 2 - size.Y * cellSize / 2);

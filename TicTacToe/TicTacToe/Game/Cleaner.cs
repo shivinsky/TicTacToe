@@ -17,10 +17,9 @@ namespace TicTacToe
         private Queue<Vector2> _waypoints;
         private Queue<Vector2> _path;
         private Vector2 _pos;
+        private Texture2D _eraser;
 
         private float _speed;
-
-        private SpriteFont _test;
 
         public Cleaner(Board board) 
             : base(board.Game)
@@ -30,7 +29,7 @@ namespace TicTacToe
             _path = new Queue<Vector2>(_waypoints);
 
             _pos = _waypoints.Peek();
-            _speed = 5;
+            _speed = 10;
         }
 
         /// <summary>
@@ -41,8 +40,8 @@ namespace TicTacToe
             var path = new Queue<Vector2>();
 
             var width = _board.Size.X;
-            var height = _board.Size.Y; 
-            for (var i = 0; i < width + height ; i += 2)
+            var height = _board.Size.Y;
+            for (var i = 0; i < width + height; i += 2)
             {
                 var from = new Vector2(Math.Max(i - height, 0), Math.Min(i, height));
                 var to = new Vector2(Math.Min(i, width), Math.Max(0, i - width));
@@ -68,7 +67,7 @@ namespace TicTacToe
         /// </summary>
         public void LoadContent()
         {
-            _test = Game.Content.Load<SpriteFont>("Fonts/main");
+            _eraser = Game.Content.Load<Texture2D>("Textures/eraser");
         }
 
         /// <summary>
@@ -107,7 +106,7 @@ namespace TicTacToe
                 from = point;
             }
 
-            spriteBatch.DrawString(_test, "+", _board.Position + new Vector2(-10, - 13) + _pos * new Vector2(26, 26), Color.Red);
+            spriteBatch.Draw(_eraser, _board.Position + _pos * new Vector2(26, 26) + new Vector2(0, - 26), Color.White);
         }
     }
 }
